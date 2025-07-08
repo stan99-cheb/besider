@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    @media (prefers-color-scheme: dark) {
+      .bg {
+        background-color: #2d3a4a;
+      }
+      .letter {
+        fill: #fff;
+      }
+    }
+    @media (prefers-color-scheme: light) {
+     .bg {
+        background-color: #fff;
+      }
+      .letter {
+        fill: #2d3a4a;
+      }
+    }
+  </style>
+  <circle class="bg" cx="32" cy="32" r="32" fill= "#2d3a4a"/>
+  <text class="letter" fill= "#fff" x="53%" y="55%" text-anchor="middle" font-size="36" font-family="Arial, sans-serif" font-weight="bold" dominant-baseline="middle">B</text>
+</svg>

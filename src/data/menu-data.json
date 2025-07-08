@@ -1,0 +1,34 @@
+[
+  {
+    "id": 0,
+    "name": "FEED"
+  },
+  {
+    "id": 1,
+    "name": "SCIENCE"
+  },
+  {
+    "id": 2,
+    "name": "GENERAL"
+  },
+  {
+    "id": 3,
+    "name": "ENTERTAINMENT"
+  },
+  {
+    "id": 4,
+    "name": "TECHNOLOGY"
+  },
+  {
+    "id": 5,
+    "name": "BUSINESS"
+  },
+  {
+    "id": 6,
+    "name": "HEALTH"
+  },
+  {
+    "id": 7,
+    "name": "SPORTS"
+  }
+]

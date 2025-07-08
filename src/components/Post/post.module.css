@@ -1,0 +1,61 @@
+.container {
+  padding-bottom: 0.625rem;
+  border-bottom: 0.0625rem solid var(--color-title);
+
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: min-content 1fr min-content;
+  gap: 0.5rem 0.75rem;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "figure source"
+    "figure title"
+    "figure date";
+
+  width: 100%;
+
+  font-size: 1rem;
+  line-height: 1.125rem;
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.figure {
+  grid-area: figure;
+}
+
+.image {
+  margin-top: 1.875rem;
+  width: 6.1875rem;
+  height: 4.625rem;
+  object-fit: cover;
+}
+
+.source {
+  color: var(--color-title);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  grid-area: source;
+}
+
+.title {
+  font-size: 1rem;
+  line-height: 1.5;
+  grid-area: title;
+}
+
+.date {
+  color: var(--color-title);
+  font-size: 0.875rem;
+  line-height: 1;
+  grid-area: date;
+}
