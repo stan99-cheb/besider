@@ -36,3 +36,7 @@ npm run dev
 ```sh
 npm run build
 ```
+
+## Ключ приложения
+
+Для запуска приложения необходим api-key. Получить его можно [здесь](https://developer.nytimes.com/). Положите полученный ключ в переменную VITE_API_KEY в файле .env или .env.local

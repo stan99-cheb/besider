@@ -1,5 +1,5 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.nytimes.com/svc/archive/v1';
-const API_KEY = import.meta.env.VITE_API_KEY || '';
+const API_KEY = import.meta.env.VITE_API_KEY || 'rJ7XaUF0IQZG7UYu0jp85Mdqpeu5MnbP';
 
 const HEADERS = {
   headers: {
