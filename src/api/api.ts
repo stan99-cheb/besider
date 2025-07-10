@@ -27,10 +27,7 @@ const request = async <T>(endpoint: string, options: RequestInit = {}): Promise<
 };
 
 export const getArchive = <T>(date: { year: number; month: number }): Promise<T> =>
-  request<T>(`/${String(date.year)}/${String(date.month)}.json`, {
-    method: 'GET',
-    mode: 'no-cors',
-  });
+  request<T>(`/${String(date.year)}/${String(date.month)}.json`);
 
 export const checkImage = (url: string): Promise<boolean> =>
   fetch(url, { method: 'HEAD' })
