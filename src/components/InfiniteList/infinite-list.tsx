@@ -19,7 +19,11 @@ const InfiniteList = ({ groups }: Props) => {
   const rootRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    setAccumulatedGroups(prev => [...prev, ...groups]);
+    setAccumulatedGroups(prev => {
+      const existingTitles = new Set(prev.map(group => group.title));
+      const newGroups = groups.filter(group => !existingTitles.has(group.title));
+      return [...prev, ...newGroups];
+    });
   }, [groups]);
 
   useEffect(() => {

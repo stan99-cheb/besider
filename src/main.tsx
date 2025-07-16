@@ -9,11 +9,11 @@ const rootElement = document.getElementById('root');
 
 if (rootElement) {
   createRoot(rootElement).render(
-    // <StrictMode>
+    <StrictMode>
       <Provider store={store}>
         <App />
       </Provider>
-    // </StrictMode>,
+    </StrictMode>,
   );
 } else {
   throw new Error("Root element with id 'root' not found");

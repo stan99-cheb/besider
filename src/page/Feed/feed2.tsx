@@ -20,8 +20,6 @@ const Feed2 = () => {
     };
   }, [dispatch]);
 
-  if (!postsGroupedByDate.length) return null;
-
   return (
     <main className={styles.main}>
       <InfiniteList
