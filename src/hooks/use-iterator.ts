@@ -1,20 +1,20 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 const useIterator = <T>(items: T[] = [], pageSize = 1) => {
   const [page, setPage] = useState(0);
   const totalPages = Math.ceil(items.length / pageSize);
 
-  useEffect(() => {
-    setPage(0);
-  }, [items, pageSize]);
+  const next = useCallback(
+    () => {
+      setPage(prev => (prev < totalPages - 1 ? prev + 1 : prev));
+    }, [totalPages]
+  );
 
-  const next = useCallback(() => {
-    setPage(prev => (prev < totalPages - 1 ? prev + 1 : prev));
-  }, [totalPages]);
-
-  const prev = useCallback(() => {
-    setPage(prev => (prev > 0 ? prev - 1 : prev));
-  }, []);
+  const prev = useCallback(
+    () => {
+      setPage(prev => (prev > 0 ? prev - 1 : prev));
+    }, []
+  );
 
   const currentItems = useMemo(
     () => items.slice(page * pageSize, (page + 1) * pageSize),

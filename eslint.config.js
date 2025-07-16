@@ -1,5 +1,6 @@
-import js from '@eslint/js'
 import globals from 'globals'
+import js from '@eslint/js'
+import reactDom from 'eslint-plugin-react-dom'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
@@ -10,7 +11,8 @@ export default tseslint.config(
     extends: [
       js.configs.recommended,
       ...tseslint.configs.strictTypeChecked,
-      ...tseslint.configs.stylisticTypeChecked
+      ...tseslint.configs.stylisticTypeChecked,
+      reactDom.configs.recommended,
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -31,6 +33,7 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      "react-dom/no-dangerously-set-innerhtml": "warn",
     },
   },
 )
