@@ -3,6 +3,8 @@ import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import { getArchive } from "../../api/api";
 import type { RootState } from "../store.types";
 
+const UUID = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
+
 const postAdapter = createEntityAdapter<Post>({
   sortComparer: (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
 });
@@ -16,7 +18,7 @@ export const fetchPosts = createAppAsyncThunk(
       const data = await getArchive<Data>(date);
       return data.response.docs.map(
         (item) => ({
-          id: crypto.randomUUID(),
+          id: UUID.exec(item._id)?.[0] ?? item._id,
           title: item.abstract,
           link: item.web_url,
           image: 'https://www.nytimes.com/' + item.multimedia[3]?.url,

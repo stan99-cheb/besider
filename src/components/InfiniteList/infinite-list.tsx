@@ -1,68 +1,55 @@
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { fetchPosts } from "../../store/slices/postsSlice";
+import { getCurrentDate, getDateIterator } from "../../utils/utils";
+import { useAppDispatch } from "../../store/hooks";
+import { useCallback, useEffect, useRef, useState } from "react";
 import List from "../List/list";
-import Post from "../Post/post";
+import Posts from "../Posts/posts";
 import styles from './infinite-list.module.css';
-import useIntersection from "../../hooks/use-intersection";
+import useIterator from "../../hooks/use-iterator";
 
 interface Props {
-  group: Record<string, Post[]>;
-  next: () => void;
+  groups: { title: string; posts: Post[] }[];
 };
 
-const InfiniteList = ({ group, next }: Props) => {
+const InfiniteList = ({ groups }: Props) => {
+  const dispatch = useAppDispatch();
+  const [accumulatedGroups, setAccumulatedGroups] = useState<{ title: string; posts: Post[] }[]>([]);
+  const { incrementItems, next, isNext } = useIterator(accumulatedGroups);
+  const dateIteratorRef = useRef(getDateIterator(getCurrentDate()));
   const rootRef = useRef<HTMLUListElement>(null);
 
-  const options = useMemo(() => ({
-    root: rootRef.current,
-    rootMargin: "0px",
-    threshold: [0],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [rootRef.current]);
-
-  const [setNode, entry] = useIntersection(options);
+  useEffect(() => {
+    setAccumulatedGroups(prev => [...prev, ...groups]);
+  }, [groups]);
 
   useEffect(() => {
-    if (entry?.isIntersecting) next();
-  }, [entry, next]);
-
-  const renderPosts = useCallback(
-    (post: Post) => (
-      <li
-        key={post.id}
-        className={styles.post}
-      >
-        <Post
-          post={post}
-        />
-      </li>
-    ), []
-  );
+    if (isNext || !incrementItems.length) return;
+    const date = dateIteratorRef.current.next().value as { year: number; month: number };
+    void dispatch(fetchPosts(date));
+  }, [dispatch, incrementItems, isNext]);
 
   const renderGroup = useCallback(
-    ([date, posts]: [string, Post[]], index: number) => (
+    ({ title, posts }: { title: string; posts: Post[] }) => (
       <li
-        key={date}
-        ref={index === Object.entries(group).length - 1 ? setNode : null}
+        key={title}
       >
         <h2
           className={styles.title}
         >
-          Новости за {date}
+          Новости за {title}
         </h2>
-        <List
-          list={posts}
-          callback={renderPosts}
-          extraStyle={styles.posts}
+        <Posts
+          posts={posts}
+          hiNext={next}
+          rootRef={rootRef}
         />
       </li>
-    ), [group, renderPosts, setNode]
+    ), [next]
   );
-
-  if (Object.keys(group).length === 0) return null;
 
   return (
     <List
-      list={Object.entries(group)}
+      list={incrementItems}
       callback={renderGroup}
       extraStyle={styles.groups}
       ref={rootRef}

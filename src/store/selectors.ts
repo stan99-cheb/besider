@@ -4,16 +4,16 @@ import type { RootState } from "./store.types";
 
 const postsGroupedByDate = createSelector(
   postSelectors.selectAll,
-  (posts) => posts.reduce<Record<string, Post[]>>(
+  (posts) => Object.values(posts.reduce<Record<string, { title: string; posts: typeof posts }>>(
     (acc, post) => {
       const dateKey = new Date(post.date).toLocaleDateString('ru-RU', {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric',
-      }); // формат даты для источника новости
-      if (typeof acc[dateKey] === 'undefined') acc[dateKey] = [];
-      if (acc[dateKey].length >= 2) return acc; // ограничение постов в группе
-      acc[dateKey].push({
+      });
+      acc[dateKey] ??= { title: dateKey, posts: [] };
+      if (acc[dateKey].posts.length >= 2) return acc;
+      acc[dateKey].posts.push({
         ...post, date: new Date(post.date).toLocaleString('en-US', {
           year: 'numeric',
           month: 'short',
@@ -21,9 +21,10 @@ const postsGroupedByDate = createSelector(
           hour: 'numeric',
           minute: 'numeric',
         }).replace(/:/g, '.')
-      }); // формат даты для карточки новости
+      });
       return acc;
-    }, {})
+    }, {}
+  ))
 );
 
 export const selectors = {
