@@ -10,6 +10,7 @@ interface Post {
   image: string;
   date: string;
   source: string;
+  desk: string;
 }
 
 interface Data {

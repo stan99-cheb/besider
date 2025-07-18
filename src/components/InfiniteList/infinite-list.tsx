@@ -1,7 +1,7 @@
 import { fetchPosts } from "../../store/slices/postsSlice";
 import { getCurrentDate, getDateIterator } from "../../utils/utils";
 import { useAppDispatch } from "../../store/hooks";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import List from "../List/list";
 import Posts from "../Posts/posts";
 import styles from './infinite-list.module.css';
@@ -13,18 +13,9 @@ interface Props {
 
 const InfiniteList = ({ groups }: Props) => {
   const dispatch = useAppDispatch();
-  const [accumulatedGroups, setAccumulatedGroups] = useState<{ title: string; posts: Post[] }[]>([]);
-  const { incrementItems, next, isNext } = useIterator(accumulatedGroups);
+  const { incrementItems, next, isNext } = useIterator(groups);
   const dateIteratorRef = useRef(getDateIterator(getCurrentDate()));
   const rootRef = useRef<HTMLUListElement>(null);
-
-  useEffect(() => {
-    setAccumulatedGroups(prev => {
-      const existingTitles = new Set(prev.map(group => group.title));
-      const newGroups = groups.filter(group => !existingTitles.has(group.title));
-      return [...prev, ...newGroups];
-    });
-  }, [groups]);
 
   useEffect(() => {
     if (isNext || !incrementItems.length) return;

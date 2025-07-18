@@ -1,34 +1,30 @@
 [
   {
     "id": 0,
-    "name": "FEED"
-  },
-  {
-    "id": 1,
-    "name": "SCIENCE"
-  },
-  {
-    "id": 2,
     "name": "GENERAL"
   },
   {
-    "id": 3,
-    "name": "ENTERTAINMENT"
-  },
-  {
-    "id": 4,
-    "name": "TECHNOLOGY"
-  },
-  {
-    "id": 5,
+    "id": 1,
     "name": "BUSINESS"
   },
   {
-    "id": 6,
+    "id": 2,
+    "name": "FOREIGN"
+  },
+  {
+    "id": 3,
     "name": "HEALTH"
   },
   {
-    "id": 7,
+    "id": 4,
+    "name": "SCIENCE"
+  },
+  {
+    "id": 5,
     "name": "SPORTS"
+  },
+  {
+    "id": 6,
+    "name": "TECHNOLOGY"
   }
 ]

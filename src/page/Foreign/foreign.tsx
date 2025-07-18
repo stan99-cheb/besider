@@ -5,11 +5,11 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useEffect } from 'react';
 import InfiniteList from '../../components/InfiniteList/infinite-list';
 import Loader from '../../components/Loader/loader';
-import styles from './business.module.css';
+import styles from './foreign.module.css';
 
-const Business = () => {
+const Foreign = () => {
   const dispatch = useAppDispatch();
-  const businessPostsGroupedByDate = useAppSelector(selectors.postsUI.businessPostsGroupedByDate);
+  const foreignPostsGroupedByDate = useAppSelector(selectors.postsUI.foreignPostsGroupedByDate);
   const isLoading = useAppSelector(selectors.postsUI.isLoading);
 
   useEffect(() => {
@@ -23,11 +23,11 @@ const Business = () => {
   return (
     <main className={styles.main}>
       <InfiniteList
-        groups={businessPostsGroupedByDate}
+        groups={foreignPostsGroupedByDate}
       />
       {isLoading && <Loader />}
     </main>
   );
 }
 
-export default Business;
+export default Foreign;
