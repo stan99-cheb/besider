@@ -24,6 +24,7 @@ export const fetchPosts = createAppAsyncThunk(
           image: 'https://www.nytimes.com/' + item.multimedia[3]?.url,
           date: item.pub_date,
           source: item.source,
+          desk: item.news_desk,
         })
       ) as Post[];
     } catch (error) {
@@ -42,7 +43,7 @@ const postsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.fulfilled, (state, action) =>
-        postAdapter.setAll(state, action));
+        postAdapter.addMany(state, action));
   },
 });
 

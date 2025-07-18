@@ -1,12 +1,11 @@
 const PathConstants = {
-  FEED: '/',
-  SCIENCE: 'science',
-  GENERAL: 'general',
-  ENTERTAINMENT: 'entertainment',
-  TECHNOLOGY: 'technology',
+  GENERAL: '/',
   BUSINESS: 'business',
+  FOREIGN: 'foreign',
   HEALTH: 'health',
+  SCIENCE: 'science',
   SPORTS: 'sports',
+  TECHNOLOGY: 'technology',
 };
 
 export default PathConstants;
