@@ -1,32 +1,14 @@
-import { fetchPosts, postsActions } from '../../store/slices/postsSlice';
-import { getCurrentDate } from '../../utils/utils';
 import { selectors } from '../../store/selectors';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { useEffect } from 'react';
-import InfiniteList from '../../components/InfiniteList/infinite-list';
-import Loader from '../../components/Loader/loader';
+import CategoryFeed from '../../components/CategoryFeed/category-feed';
 import styles from './business.module.css';
 
 const Business = () => {
-  const dispatch = useAppDispatch();
-  const businessPostsGroupedByDate = useAppSelector(selectors.postsUI.businessPostsGroupedByDate);
-  const isLoading = useAppSelector(selectors.postsUI.isLoading);
-
-  useEffect(() => {
-    void dispatch(fetchPosts(getCurrentDate()));
-
-    return () => {
-      void dispatch(postsActions.clearPosts());
-    };
-  }, [dispatch]);
-
   return (
-    <main className={styles.main}>
-      <InfiniteList
-        groups={businessPostsGroupedByDate}
-      />
-      {isLoading && <Loader />}
-    </main>
+    <CategoryFeed
+      groupSelector={selectors.postsUI.businessPostsGroupedByDate}
+      isLoadingSelector={selectors.postsUI.isLoading}
+      extraClass={styles.main}
+    />
   );
 }
 

@@ -16,35 +16,17 @@ const postsGroupedByDate = createSelector(
   }
 );
 
-const businessPostsGroupedByDate = createSelector(
-  postsGroupedByDate,
-  (groups) => groups
-    .map(group => ({
-      ...group,
-      posts: group.posts.filter(post => post.desk === 'Business')
-    }))
-    .filter(group => group.posts.length > 0)
-);
-
-const foreignPostsGroupedByDate = createSelector(
-  postsGroupedByDate,
-  (groups) => groups
-    .map(group => ({
-      ...group,
-      posts: group.posts.filter(post => post.desk === 'Foreign')
-    }))
-    .filter(group => group.posts.length > 0)
-);
-
-const sciencePostsGroupedByDate = createSelector(
-  postsGroupedByDate,
-  (groups) => groups
-    .map(group => ({
-      ...group,
-      posts: group.posts.filter(post => post.desk === 'Science')
-    }))
-    .filter(group => group.posts.length > 0)
-);
+const makePostsGroupedByDesk = (desk: string) =>
+  createSelector(
+    postsGroupedByDate,
+    (groups) =>
+      groups
+        .map(group => ({
+          ...group,
+          posts: group.posts.filter(post => post.desk === desk)
+        }))
+        .filter(group => group.posts.length > 0)
+  );
 
 export const selectors = {
   posts: {
@@ -54,8 +36,8 @@ export const selectors = {
     isLoading: (state: RootState) => state.postsUI.isLoading,
     error: (state: RootState) => state.postsUI.error,
     postsGroupedByDate,
-    businessPostsGroupedByDate,
-    foreignPostsGroupedByDate,
-    sciencePostsGroupedByDate,
+    businessPostsGroupedByDate: makePostsGroupedByDesk("Business"),
+    foreignPostsGroupedByDate: makePostsGroupedByDesk("Foreign"),
+    sciencePostsGroupedByDate: makePostsGroupedByDesk("Science"),
   },
 };

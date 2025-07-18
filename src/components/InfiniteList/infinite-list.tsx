@@ -1,6 +1,3 @@
-import { fetchPosts } from "../../store/slices/postsSlice";
-import { getCurrentDate, getDateIterator } from "../../utils/utils";
-import { useAppDispatch } from "../../store/hooks";
 import { useCallback, useEffect, useRef } from "react";
 import List from "../List/list";
 import Posts from "../Posts/posts";
@@ -9,19 +6,17 @@ import useIterator from "../../hooks/use-iterator";
 
 interface Props {
   groups: { title: string; posts: Post[] }[];
+  onLoadNext?: () => void;
 };
 
-const InfiniteList = ({ groups }: Props) => {
-  const dispatch = useAppDispatch();
+const InfiniteList = ({ groups, onLoadNext }: Props) => {
   const { incrementItems, next, isNext } = useIterator(groups);
-  const dateIteratorRef = useRef(getDateIterator(getCurrentDate()));
   const rootRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     if (isNext || !incrementItems.length) return;
-    const date = dateIteratorRef.current.next().value as { year: number; month: number };
-    void dispatch(fetchPosts(date));
-  }, [dispatch, incrementItems, isNext]);
+    onLoadNext?.();
+  }, [isNext, incrementItems.length, onLoadNext]);
 
   const renderGroup = useCallback(
     ({ title, posts }: { title: string; posts: Post[] }) => (
