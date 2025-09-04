@@ -2,7 +2,7 @@ export const getCurrentDate = () => {
   const date = new Date();
   return {
     year: date.getFullYear(),
-    month: date.getMonth() - 1,
+    month: date.getMonth() - 3,
   };
 };
 

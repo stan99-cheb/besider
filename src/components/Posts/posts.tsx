@@ -36,7 +36,7 @@ const Posts = ({ posts, hiNext, rootRef }: Props) => {
         key={post.id}
         ref={idx === incrementItems.length - 1 ? setNode : null}
       >
-        <Post post={post} />
+        <Post id={post.id} />
       </li>
     ), [incrementItems.length, setNode]
   );
