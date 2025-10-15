@@ -11,9 +11,17 @@ interface Props {
 };
 
 const Post = ({ id }: Props) => {
-  const { image, source, link, title, date } = useAppSelector(selectors.posts.postSelectedById(id));
-  const imageUrl = useMemo(() => image, [image]);
-  const { isImage } = useImage(imageUrl, checkImage);
+  const post = useAppSelector(selectors.posts.postSelectedById(id));
+
+  if (!post) {
+    return null;
+  }
+
+  const { image, source, link, title, date } = post;
+  const { isImage } = useImage(image, checkImage);
+
+  const imageSrc = useMemo(() => isImage ? image : noImage, [image, isImage]);
+  const imageAlt = useMemo(() => isImage ? "Изображение новости" : "Нет изображения", [isImage]);
 
   return (
     <article
@@ -25,8 +33,8 @@ const Post = ({ id }: Props) => {
         <picture>
           <img
             className={styles.image}
-            src={isImage ? image : noImage}
-            alt={isImage ? "Изображение новости" : "Нет изображения"}
+            src={imageSrc}
+            alt={imageAlt}
           />
         </picture>
       </figure>

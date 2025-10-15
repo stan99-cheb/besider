@@ -10,7 +10,10 @@ export const rootReducer = combineSlices({
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
+    getDefaultMiddleware({
+      serializableCheck: { warnAfter: 300 },
+      immutableCheck: { warnAfter: 300 },
+    }),
 });
 
 export default store;

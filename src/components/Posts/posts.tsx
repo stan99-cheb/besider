@@ -17,7 +17,7 @@ const Posts = ({ posts, hiNext, rootRef }: Props) => {
   const options = useMemo(() => ({
     root: rootRef.current,
     rootMargin: "0px",
-    threshold: [1],
+    threshold: [0],
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [rootRef.current]);
 
