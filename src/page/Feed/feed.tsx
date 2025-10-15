@@ -1,11 +1,11 @@
-import { postSelectors } from "../../store/slices/postsSlice";
+import { selectors } from "../../store/selectors";
 import { useAppSelector } from "../../store/hooks";
 import Pagination from "../../components/Pagination/pagination";
 import styles from "./feed.module.css";
 import useIterator from "../../hooks/use-iterator";
 
 const Feed = () => {
-  const posts = useAppSelector(postSelectors.selectAll);
+  const posts = useAppSelector(selectors.posts.postAll);
 
   const {
     currentItems, page,

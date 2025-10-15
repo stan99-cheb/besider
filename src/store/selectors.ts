@@ -30,7 +30,8 @@ const makePostsGroupedByDesk = (desk: string) =>
 
 export const selectors = {
   posts: {
-    postSelectors,
+    postAll: (state: RootState) => postSelectors.selectAll(state),
+    postSelectedById: (id: Post['id']) => (state: RootState) => postSelectors.selectById(state, id),
   },
   postsUI: {
     isLoading: (state: RootState) => state.postsUI.isLoading,

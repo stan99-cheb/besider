@@ -2,7 +2,7 @@ import { memo, useCallback, useMemo, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import * as icon from '../Icons';
 import List from '../List/list';
-import menuData from '../../data/menu-data.json';
+import menuData from '../../routes/path-constants';
 import PathConstants from '../../routes/path-constants';
 import styles from './header.module.css';
 import useClickOutside from '../../hooks/use-click-outside';
@@ -22,18 +22,18 @@ const Header = () => {
   });
 
   const renderMenuItem = useCallback(
-    (item: MenuItem) => (
+    (item: string) => (
       <li
-        key={item.id}
+        key={item}
       >
         <NavLink
-          to={PathConstants[item.name as keyof typeof PathConstants]}
+          to={PathConstants[item as keyof typeof PathConstants]}
           className={({ isActive }) =>
             [styles.link, isActive ? styles.active : ''].filter(Boolean).join(' ')
           }
           onClick={toggleMenu}
         >
-          {item.name}
+          {item}
         </NavLink>
       </li>
     ), [toggleMenu]
@@ -65,7 +65,7 @@ const Header = () => {
         aria-label="Основное меню"
       >
         <List
-          list={menuData}
+          list={Object.keys(menuData)}
           callback={renderMenuItem}
           extraStyle={`${styles.list} ${styles[`list-portrait`]}`}
         />
