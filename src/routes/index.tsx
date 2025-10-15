@@ -1,13 +1,13 @@
 import React from "react";
 import PathConstants from "./path-constants";
 
-const Business = React.lazy(() => import("../page/Business/business"));
-const Foreign = React.lazy(() => import("../page/Foreign/foreign"));
-const General = React.lazy(() => import("../page/General/general"));
-const Health = React.lazy(() => import("../page/Health/health"));
-const Science = React.lazy(() => import("../page/Science/science"));
-const Sports = React.lazy(() => import("../page/Sports/sports"));
-const Technology = React.lazy(() => import("../page/Technology/technology"));
+const Business = React.lazy(() => import("../pages/Business/business"));
+const Foreign = React.lazy(() => import("../pages/Foreign/foreign"));
+const General = React.lazy(() => import("../pages/General/general"));
+const Health = React.lazy(() => import("../pages/Health/health"));
+const Science = React.lazy(() => import("../pages/Science/science"));
+const Sports = React.lazy(() => import("../pages/Sports/sports"));
+const Technology = React.lazy(() => import("../pages/Technology/technology"));
 
 const routes = [
   { path: PathConstants.BUSINESS, element: <Business /> },
